@@ -243,3 +243,19 @@ section h2 {
     color: #555;
     font-weight: 500;
 }
+/* Estilo para o link da página de avaliações */
+.view-ratings-link {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.view-ratings-link:hover {
+    background-color: #0056b3;
+}

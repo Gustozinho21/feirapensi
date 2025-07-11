@@ -1,27 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Seleciona os elementos da página
     const stars = document.querySelectorAll('.rating-system .stars i');
     const ratingText = document.querySelector('.rating-text');
     const starsContainer = document.querySelector('.rating-system .stars');
+    const ratingsLink = document.querySelector('.view-ratings-link'); // Seleciona o link
 
-    stars.forEach(star => {
-        star.addEventListener('mouseover', function() {
-            const value = this.dataset.value;
-            highlightStars(value);
-        });
-
-        star.addEventListener('mouseout', function() {
-            const currentRating = starsContainer.dataset.rating;
-            highlightStars(currentRating);
-        });
-
-        star.addEventListener('click', function() {
-            const value = this.dataset.value;
-            starsContainer.dataset.rating = value;
-            ratingText.textContent = `Sua avaliação: ${value} de 5 estrelas`;
-            highlightStars(value);
-        });
-    });
-
+    // Função para destacar as estrelas
     function highlightStars(value) {
         stars.forEach(star => {
             if (star.dataset.value <= value) {
@@ -31,23 +15,57 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});```
+    
+    // Função para resetar a interface de avaliação
+    function resetStars() {
+        highlightStars(0);
+        starsContainer.dataset.rating = "0";
+        ratingText.textContent = "Avalie nosso conteúdo novamente!"; // Mensagem após reset
+    }
 
-### Explicação das Mudanças:
+    stars.forEach(star => {
+        // Efeito visual ao passar o mouse
+        star.addEventListener('mouseover', function() {
+            highlightStars(this.dataset.value);
+        });
 
-1.  **HTML**:
-    *   Foi adicionada uma referência à biblioteca Font Awesome no `<head>` para podermos usar os ícones de estrela.
-    *   Uma nova `<section>` com o `id="avaliacao"` foi criada no final do `<body>`.
-    *   Dentro dessa seção, há um `div` para o sistema de avaliação que contém os ícones de estrela (`<i>`) e um parágrafo para exibir o texto da avaliação.
+        // Ao tirar o mouse, volta ao estado atual
+        star.addEventListener('mouseout', function() {
+            highlightStars(starsContainer.dataset.rating);
+        });
 
-2.  **CSS**:
-    *   Novos estilos foram adicionados para a seção de avaliação, centralizando o conteúdo e definindo cores e tamanhos para as estrelas e o texto.
-    *   As estrelas são cinzas por padrão e ficam amarelas quando o mouse passa por cima (`hover`) ou quando estão ativas (`.active`).
+        // Evento principal: ao clicar em uma estrela
+        star.addEventListener('click', function() {
+            const value = this.dataset.value;
 
-3.  **JavaScript**:
-    *   O código adiciona "ouvintes de evento" às estrelas.
-    *   **`mouseover`**: Quando o mouse passa por cima de uma estrela, todas as estrelas até ela são destacadas.
-    *   **`mouseout`**: Quando o mouse sai, a exibição volta para a avaliação que foi clicada por último.
-    *   **`click`**: Quando uma estrela é clicada, a avaliação é "salva" (em um atributo de dados) e o texto é atualizado.
+            // Pega a lista de avaliações antigas ou cria uma nova
+            let allRatings = JSON.parse(localStorage.getItem('pensi105-all-ratings')) || [];
 
-Com essas adições, seu site agora terá um sistema de avaliação com estrelas funcional e estilizado na parte inferior.
+            // Adiciona a nova avaliação
+            allRatings.push(value);
+
+            // Salva a lista atualizada de volta no localStorage
+            localStorage.setItem('pensi105-all-ratings', JSON.stringify(allRatings));
+
+            // --- LÓGICA PRINCIPAL DA MUDANÇA ---
+            // 1. Mostra a mensagem de agradecimento
+            ratingText.textContent = `Obrigado por avaliar com ${value} estrelas!`;
+
+            // 2. Faz o link para "Ver todas as avaliações" APARECER
+            ratingsLink.style.display = 'inline-block';
+            
+            // Impede novos cliques enquanto a mensagem é exibida
+            starsContainer.style.pointerEvents = 'none';
+
+            // 3. Reseta as estrelas após um intervalo, mas mantém o link visível
+            setTimeout(() => {
+                resetStars();
+                starsContainer.style.pointerEvents = 'auto'; // Reativa os cliques nas estrelas
+            }, 2000); // 2 segundos
+        });
+    });
+    
+    // Garante que a interface comece zerada
+    ratingText.textContent = "Avalie nosso conteúdo";
+    highlightStars(0);
+});

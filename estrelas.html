@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todas as Avaliações - Feira Pensi 105</title>
+    <link rel="stylesheet" href="style.css"> <!-- Reutilizando o estilo principal -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Estilos específicos para esta página */
+        body { padding: 40px; text-align: center; }
+        .ratings-container { max-width: 800px; margin: 0 auto; }
+        .ratings-summary { margin-bottom: 30px; font-size: 1.2rem; }
+        #ratings-list { list-style: none; padding: 0; }
+        #ratings-list li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .stars-display { color: #ffc107; }
+        .back-link { display: inline-block; margin-top: 30px; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+    <div class="ratings-container">
+        <h1>Todas as Avaliações</h1>
+        
+        <div class="ratings-summary">
+            <p id="summary-text">Calculando resumo...</p>
+        </div>
+
+        <ul id="ratings-list">
+            <!-- As avaliações serão inseridas aqui pelo JavaScript -->
+        </ul>
+        
+        <a href="index.html" class="back-link">← Voltar para a página principal</a>
+    </div>
+
+    <script src="estrelas.js"></script> <!-- Script específico para esta página -->
+
+</body>
+</html>
