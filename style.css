@@ -213,3 +213,33 @@ section h2 {
         flex-direction: column-reverse;
     }
 }
+/* --- ESTILOS PARA A SEÇÃO DE AVALIAÇÃO --- */
+#avaliacao {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f4f4f9; /* Um fundo levemente diferente para destacar */
+}
+
+#avaliacao h2 {
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+.rating-system .stars {
+    font-size: 2.5rem; /* Tamanho das estrelas */
+    color: #d3d3d3;   /* Cor das estrelas inativas */
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.rating-system .stars i:hover,
+.rating-system .stars i.active {
+    color: #ffc107; /* Cor das estrelas ativas e no hover */
+}
+
+.rating-text {
+    font-size: 1.1rem;
+    color: #555;
+    font-weight: 500;
+}
